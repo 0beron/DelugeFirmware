@@ -24,6 +24,15 @@ Here is a list of general improvements that have been made, ordered from newest 
 - ([#178]) New option (FINE TEMPO in the Runtime Settings (Community Features) menu) to invert the push+turn behavior of the "TEMPO" knob. With this option enabled the tempo changes by 1 when unpushed and 4 when pushed (vs 4 unpushed and 1 pushed in the official firmware). This option defaults to OFF.
 	- This feature can be turned ON/OFF in the Runtime Settings (Community Features) Menu (accessed by pressing "SHIFT" + "SELECT"). 
 
+#### 3.5 - Kits
+
+- ([#395]) Load synth presets into kit rows by holding the audition pad and pressing synth. Saving kit rows to synth presets is not yet implemented.
+
+#### 3.6 - Global Interface
+
+- ([#118]) Sticky Shift - When enabled, tapping shift will lock shift on unless another button is also pressed during the short press duration.
+- ([#118]) Shift LED feedback can now be toggled manually.
+
 ## 4. New Features Added
 
 Here is a list of features that have been added to the firmware as a list, grouped by category:
@@ -129,7 +138,13 @@ This mode affects how the deluge handles MIDI input for learned CC controls.
 - ([#349]) Adds a pre filter wavefolder, and the depth is patchable/automatable. The depth is accessible in both the menu and on the pad between saturation and LPF cutoff. The fold has no effect when set to 0 and removes itself from the signal path.
 	- Note that it has no effect on square waves, it's best with sines and triangles
 
-#### 4.2.6 - Grain FX
+#### 4.2.6 - Quantized Stutter
+
+- ([#357]) Ability to set, using the Community Features Menu, the stutterer effect to be quantized to 4th, 8th, 16th, 32nd, and 64th rate when selecting it. Once you have pressed the Stutter knob, then the selected value will be the center value of the knob and you can go up and down with the golden knob and come back to the original rate by centering the knob (LEDs will flash indicating it).
+
+	- This feature can be turned ON/OFF in the Runtime Settings (Community Features) Menu (accessed by pressing "SHIFT" + "SELECT"). 
+
+#### 4.2.7 - Grain FX
 
 - ([#363]) New Grain FX type added to Mod FX. This effect is somewhat resource-intensive, so please use only one instance per song.
 
@@ -146,9 +161,8 @@ This mode affects how the deluge handles MIDI input for learned CC controls.
 		- **Preset 4:** 5th and +1 Octave
 		- **Preset 5:** Unison and +1/-1 Octave (Tempo Sync)
 
-#### 4.2.7 - Quantized Stutter
 
-- ([#357]) Ability to set, using the Community Features Menu, the stutterer effect to be quantized to 4th, 8th, 16th, 32nd, and 64th rate when selecting it. Once you have pressed the Stutter knob, then the selected value will be the center value of the knob and you can go up and down with the golden knob and come back to the original rate by centering the knob (LEDs will flash indicating it).
+	- This feature can be turned ON/OFF in the Runtime Settings (Community Features) Menu (accessed by pressing "SHIFT" + "SELECT"). 
 
 ### 4.3 - Instrument Clip View - General Features
 
@@ -280,6 +294,8 @@ In the main menu of the deluge (accessed by pressing "SHIFT" + the "SELECT" knob
 	* When On, the Delete Unused Kit Rows shortcut (hold "KIT" then "SHIFT" + "SAVE/DELETE") is enabled.
 * Alternative Golden Knob Delay Params
 	* When On, it changes the behaviour of the Mod Encoder button action from the default (PingPong and Type) to the alternative params (SyncType and SyncLevel).
+* Stutter Rate Quantize
+	* When On, the ability to set the stutterer effect to be quantized to 4th, 8th, 16th, 32nd, and 64th rate when selecting it is enabled.
 * Automation (AUTO)
 	* Interpolation
 		* When On, Interpolation is on by default in the Automation Instrument Clip View.
@@ -293,14 +309,18 @@ In the main menu of the deluge (accessed by pressing "SHIFT" + the "SELECT" knob
 	* Shift Note
 		* When On, shifting notes horizontally in the regular Instrument Clip View will shift the Notes and MPE, but not the Automation.
 		* When On, to shift Non-MPE Automation horizontally you will need to enter the Automation Instrument Clip View.
-  * Allow Insecure Develop Sysex Messages
+* Allow Insecure Develop Sysex Messages
   	* When On, the ability to load firmware over USB is enabled.
-  * Sync Scaling Action
+* Sync Scaling Action
   	* When set to Fill, it changes the behaviour of the "SYNC-SCALING" button is changed to activate "FILL" mode. The original Sync Scaling button function is moved to "SHIFT" + "SYNC-SCALING".
-  * Highlight Incoming Notes
+* Highlight Incoming Notes
   	* When On, In-Key and Isometric Keyboard layouts display incoming MIDI notes with their velocity.
-  * Display Norns Layout
+* Display Norns Layout
   	* When On, all incoming notes are rendered consecutively as white pads with velocity as brightness.
+* Sticky Shift
+  	* When On, tapping shift briefly will enable sticky keys while a long press will keep it on. Enabling this setting will automatically enable "Light Shift" as well.
+* Light Shift
+  	* When On, the Deluge will illuminate the shift button when shift is active. Mostly useful in conjunction with sticky shift.
 
 ## 6. Sysex Handling
 
@@ -329,18 +349,19 @@ This list includes all preprocessor switches that can alter firmware behaviour a
 [#47]: https://github.com/SynthstromAudible/DelugeFirmware/pull/47
 [#103]: https://github.com/SynthstromAudible/DelugeFirmware/pull/103
 [#112]: https://github.com/SynthstromAudible/DelugeFirmware/pull/112
+[#118]: https://github.com/SynthstromAudible/DelugeFirmware/pull/118
 [#120]: https://github.com/SynthstromAudible/DelugeFirmware/pull/120
 [#122]: https://github.com/SynthstromAudible/DelugeFirmware/pull/122
 [#125]: https://github.com/SynthstromAudible/DelugeFirmware/pull/125
 [#129]: https://github.com/SynthstromAudible/DelugeFirmware/pull/129
-[#141]: https://github.com/SynthstromAudible/DelugeFirmware/pull/141
 [#137]: https://github.com/SynthstromAudible/DelugeFirmware/pull/137
 [#138]: https://github.com/SynthstromAudible/DelugeFirmware/pull/138
+[#141]: https://github.com/SynthstromAudible/DelugeFirmware/pull/141
 [#157]: https://github.com/SynthstromAudible/DelugeFirmware/pull/157
 [#163]: https://github.com/SynthstromAudible/DelugeFirmware/pull/163
-[#178]: https://github.com/SynthstromAudible/DelugeFirmware/pull/178
 [#170]: https://github.com/SynthstromAudible/DelugeFirmware/pull/170
 [#174]: https://github.com/SynthstromAudible/DelugeFirmware/pull/174
+[#178]: https://github.com/SynthstromAudible/DelugeFirmware/pull/178
 [#192]: https://github.com/SynthstromAudible/DelugeFirmware/pull/192
 [#196]: https://github.com/SynthstromAudible/DelugeFirmware/pull/196
 [#198]: https://github.com/SynthstromAudible/DelugeFirmware/pull/198
@@ -369,4 +390,6 @@ This list includes all preprocessor switches that can alter firmware behaviour a
 [#360]: https://github.com/SynthstromAudible/DelugeFirmware/pull/360
 [#363]: https://github.com/SynthstromAudible/DelugeFirmware/pull/363
 [#368]: https://github.com/SynthstromAudible/DelugeFirmware/pull/368
-[Automation View Documentation]: https://github.com/SynthstromAudible/DelugeFirmware/blob/community/docs/features/automation_view.md
+[#395]: https://github.com/SynthstromAudible/DelugeFirmware/pull/395
+
+[Automation View Documentation]: https://github.com/SynthstromAudible/DelugeFirmware/blob/release/1.0/docs/features/automation_view.md

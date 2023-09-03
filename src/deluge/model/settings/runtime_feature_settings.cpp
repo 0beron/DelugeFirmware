@@ -65,11 +65,11 @@ static void SetupSyncScalingActionSetting(RuntimeFeatureSetting& setting, char c
 	setting.value = static_cast<uint32_t>(def);
 
 	setting.options = {{
-	                       .displayName = "SCAL",
+	                       .displayName = display->haveOLED() ? "Sync Scaling" : "SCAL",
 	                       .value = RuntimeFeatureStateSyncScalingAction::SyncScaling,
 	                   },
 	                   {
-	                       .displayName = "FILL",
+	                       .displayName = display->haveOLED() ? "Fill mode" : "FILL",
 	                       .value = RuntimeFeatureStateSyncScalingAction::Fill,
 	                   }};
 }
@@ -123,10 +123,18 @@ void RuntimeFeatureSettings::init() {
 	                              "syncScalingAction", RuntimeFeatureStateSyncScalingAction::SyncScaling);
 	// HighlightIncomingNotes
 	SetupOnOffSetting(settings[RuntimeFeatureSettingType::HighlightIncomingNotes], "Highlight incoming notes",
-	                  "highlightIncomingNotes", RuntimeFeatureStateToggle::Off);
+	                  "highlightIncomingNotes", RuntimeFeatureStateToggle::On);
 	// DisplayNornsLayout
 	SetupOnOffSetting(settings[RuntimeFeatureSettingType::DisplayNornsLayout], "Display Norns layout",
 	                  "displayNornsLayout", RuntimeFeatureStateToggle::Off);
+
+	// ShiftIsSticky
+	SetupOnOffSetting(settings[RuntimeFeatureSettingType::ShiftIsSticky], "Sticky Shift", "stickyShift",
+	                  RuntimeFeatureStateToggle::Off);
+
+	// LightShiftLed
+	SetupOnOffSetting(settings[RuntimeFeatureSettingType::LightShiftLed], "Light Shift", "lightShift",
+	                  RuntimeFeatureStateToggle::Off);
 }
 
 void RuntimeFeatureSettings::readSettingsFromFile() {

@@ -223,7 +223,8 @@ addNewNote:
 
 		newNote->setVelocity(((Instrument*)((Clip*)modelStack->getTimelineCounter())->output)->defaultVelocity);
 		newNote->setLift(kDefaultLiftValue);
-		newNote->setProbability(kNumProbabilityValues);
+
+		newNote->setProbability(getDefaultProbability(modelStack));
 
 		if (i + 1 < notes.getNumElements()) {
 			newNote->setLength(std::min(desiredNoteLength, notes.getElement(i + 1)->pos - newNote->pos));
@@ -441,7 +442,7 @@ addNewNote:
 			destNote->pos = posThisScreen;
 			destNote->setVelocity(velocity);
 			destNote->setLift(kDefaultLiftValue);
-			destNote->setProbability(kNumProbabilityValues);
+			destNote->setProbability(getDefaultProbability(modelStack));
 
 			int32_t newLength;
 
@@ -510,6 +511,15 @@ addNewNote:
 	((InstrumentClip*)modelStack->getTimelineCounter())->expectEvent();
 
 	return NO_ERROR;
+}
+int32_t NoteRow::getDefaultProbability(ModelStackWithNoteRow* ModelStack) {
+
+	if (ModelStack->song->fillModeActive) {
+		return 0;
+	}
+	else {
+		return probabilityValue;
+	}
 }
 
 // This gets called after we've scrolled and attempted to drag notes. And for recording.
@@ -629,7 +639,7 @@ int32_t NoteRow::attemptNoteAddReversed(ModelStackWithNoteRow* modelStack, int32
 	newNote->setLength(1);
 	newNote->setVelocity(velocity);
 	newNote->setLift(kDefaultLiftValue);
-	newNote->setProbability(kNumProbabilityValues);
+	newNote->setProbability(getDefaultProbability(modelStack));
 
 	((InstrumentClip*)modelStack->getTimelineCounter())->expectEvent();
 
@@ -3128,7 +3138,7 @@ void NoteRow::setDrumToNull(ModelStackWithTimelineCounter const* modelStack) {
 
 // If NULL or a gate drum, no need to supply a Kit
 // song not required if setting to NULL
-// Can handle NULL newParamManager. In fact, only one caller sends an actual one.
+// Can handle NULL newParamManager.
 void NoteRow::setDrum(Drum* newDrum, Kit* kit, ModelStackWithNoteRow* modelStack,
                       InstrumentClip* favourClipForCloningParamManager, ParamManager* newParamManager) {
 
@@ -3143,7 +3153,7 @@ void NoteRow::setDrum(Drum* newDrum, Kit* kit, ModelStackWithNoteRow* modelStack
 	drum = (SoundDrum*)
 	    newDrum; // Better set this temporarily for this call. See comment above for why we can't set it permanently yet
 
-	if (newParamManager) { // Only one caller actually sends this.
+	if (newParamManager) {
 		paramManager.stealParamCollectionsFrom(
 		    newParamManager); // Don't bother stealing expression/MPE params - newParamManager is actually literally brand new in the one case that it gets supplied.
 		if (paramManager.containsAnyParamCollectionsIncludingExpression()) {
